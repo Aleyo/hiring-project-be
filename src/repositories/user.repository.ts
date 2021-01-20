@@ -20,7 +20,7 @@ export class UserRepository {
     return user;
   }
 
-  public async findOne(query: string | any): Promise<User> {
+  public async findOne(query: string | any): Promise<User | undefined> {
     let record;
 
     if (typeof query === 'string') {
@@ -33,7 +33,9 @@ export class UserRepository {
         .value();
     }
 
-    console.log('record', record);
+    if (!record) {
+      return record;
+    }
 
     return new User(record);
   }
